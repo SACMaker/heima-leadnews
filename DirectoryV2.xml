@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="" title="父项目Sb"/>
+     <tree path="/heima-leadnews-common" title="通用配置"/>
+     <tree path="/heima-leadnews-feign-api" title="feign模块"/>
+     <tree path="/heima-leadnews-gateway" title="网关模块"/>
+     <tree path="/heima-leadnews-model" title="实体类模块"/>
+     <tree path="/heima-leadnews-service" title="微服务模块"/>
+     <tree path="/heima-leadnews-test" title="测试模块"/>
+     <tree path="/heima-leadnews-utils" title="工具类模块"/>
+ </trees>

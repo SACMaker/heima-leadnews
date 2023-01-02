@@ -18,35 +18,6 @@ import java.io.FileNotFoundException;
 @RunWith(SpringRunner.class)
 public class MinIOTest {
     /**
-     * 把list.html文件上传到minio中，并且可以在浏览器中访问
-     * <p>
-     * //@param args
-     */
-   /* public static void main(String[] args) {
-
-        try {
-            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\yuhon\\Downloads\\index.js");
-
-            //1，获取minio的链接信息  创建一个minio的客户端
-            MinioClient minioClient = MinioClient.builder().credentials("minio", "minio123").endpoint("http://192.168.200.130:9000").build();
-
-            //2.上传
-            PutObjectArgs putObjectArgs = PutObjectArgs.builder()
-                    .object("plugins/js/index.js") //文件名词
-                    .contentType("text/js") //文件类型
-                    .bucket("leadnews") //桶名称  与minio管理界面创建的桶一致即可
-                    .stream(fileInputStream, fileInputStream.available(), -1).build();
-            minioClient.putObject(putObjectArgs);
-
-            //访问路径
-//            System.out.println("http://192.168.200.130:9000/leadnews/list.html");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-*/
-
-    /**
      * 测试minIO上传服务
      */
     @Test
@@ -79,6 +50,7 @@ public class MinIOTest {
 
     /**
      * 测试minIO启动器文件上传服务
+     *
      * @throws FileNotFoundException
      */
     @Test

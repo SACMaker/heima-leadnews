@@ -8,4 +8,9 @@
      <tree path="/heima-leadnews-service" title="微服务模块"/>
      <tree path="/heima-leadnews-test" title="测试模块"/>
      <tree path="/heima-leadnews-utils" title="工具类模块"/>
- </trees>
+     <tree path="/heima-leadnews-service/heima-leadnews-user" title="用户服务"/>
+     <tree path="/heima-leadnews-service/heima-leadnews-article" title="文章服务"/>
+     <tree path="/heima-leadnews-model/src/main/java/com/heima/model/article" title="文章实体"/>
+    <tree path="/heima-leadnews-model/src/main/java/com/heima/model/user" title="用户实体"/>
+    <tree path="/heima-leadnews-model/src/main/java/com/heima/model/common" title="通用对象"/>
+</trees>

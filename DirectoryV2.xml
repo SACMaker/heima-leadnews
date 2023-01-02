@@ -8,11 +8,17 @@
      <tree path="/heima-leadnews-service" title="微服务模块"/>
      <tree path="/heima-leadnews-test" title="测试模块"/>
      <tree path="/heima-leadnews-utils" title="工具类模块"/>
-     <tree path="/heima-leadnews-service/heima-leadnews-user" title="用户服务"/>
-     <tree path="/heima-leadnews-service/heima-leadnews-article" title="文章服务"/>
+     <tree path="/heima-leadnews-service/heima-leadnews-user" title="App-用户服务"/>
+     <tree path="/heima-leadnews-service/heima-leadnews-article" title="App-文章服务"/>
      <tree path="/heima-leadnews-model/src/main/java/com/heima/model/article" title="文章实体"/>
     <tree path="/heima-leadnews-model/src/main/java/com/heima/model/user" title="用户实体"/>
     <tree path="/heima-leadnews-model/src/main/java/com/heima/model/common" title="通用对象"/>
     <tree path="/heima-leadnews-basic" title="启动器模块"/>
     <tree path="/heima-leadnews-basic/heima-file-starter" title="minIO文件服务启动器"/>
+    <tree path="/heima-leadnews-gateway/heima-leadnews-app-gateway" title="用户app网关"/>
+    <tree path="/heima-leadnews-gateway/heima-leadnews-wemedia-gateway" title="自媒体后台网关"/>
+    <tree path="/heima-leadnews-service/heima-leadnews-wemedia" title="自媒体-后台服务"/>
+    <tree path="/heima-leadnews-model/src/main/java/com/heima/model/wemedia" title="自媒体后台实体"/>
+    <tree path="/heima-leadnews-service/heima-leadnews-schedule" title="延迟任务服务"/>
+    <tree path="/heima-leadnews-model/src/main/java/com/heima/model/schedule" title="延迟任务实体"/>
 </trees>

@@ -12,6 +12,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>freemarker-demo</module>
+        <module>minio-demo</module>
     </modules>
 
     <artifactId>heima-leadnews-test</artifactId>

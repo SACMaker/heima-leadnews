@@ -13,4 +13,6 @@
      <tree path="/heima-leadnews-model/src/main/java/com/heima/model/article" title="文章实体"/>
     <tree path="/heima-leadnews-model/src/main/java/com/heima/model/user" title="用户实体"/>
     <tree path="/heima-leadnews-model/src/main/java/com/heima/model/common" title="通用对象"/>
+    <tree path="/heima-leadnews-basic" title="启动器模块"/>
+    <tree path="/heima-leadnews-basic/heima-file-starter" title="minIO文件服务启动器"/>
 </trees>

@@ -22,7 +22,11 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
      */
     @Override
     public ResponseResult findAllChannels() {
+<<<<<<< HEAD
         List<WmChannel> allChannels = list();
+=======
+        List<WmChannel> allChannels = this.list();
+>>>>>>> 5edfeec (fun3-3-1:自媒体文章发布-自媒体文章管理-查询所有频道)
         return ResponseResult.okResult(allChannels);
     }
 }

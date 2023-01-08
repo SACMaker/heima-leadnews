@@ -1,8 +1,7 @@
 package com.heima.wemedia.service.impl;
 
-
+import apis.article.IArticleClient;
 import com.alibaba.fastjson.JSONArray;
-import com.heima.apis.article.IArticleClient;
 import com.heima.common.aliyun.GreenImageScan;
 import com.heima.common.aliyun.GreenTextScan;
 import com.heima.file.service.FileStorageService;
@@ -67,18 +66,17 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
         if (wmNews.getStatus().equals(WmNews.Status.SUBMIT.getCode())) {
             //解析新闻里面文本和图片url
             Map<String, Object> textAndImages = extractTextImages(wmNews);
-            //默认审核成功
             //对接阿里云文本审核
-            //boolean isTextScan = reviewTextScan((String) textAndImages.get("content"), wmNews);
-            //if (!isTextScan) {
-            //    return;
-            //}
+            boolean isTextScan = reviewTextScan((String) textAndImages.get("content"), wmNews);
+            if (!isTextScan) {
+                return;
+            }
             //对接阿里云图片审核
             //3.审核图片  阿里云接口
-            //boolean isImageScan = reviewleImageScan((List<String>) textAndImages.get("images"), wmNews);
-            //if (!isImageScan) {
-            //    return;
-            //}
+            boolean isImageScan = reviewleImageScan((List<String>) textAndImages.get("images"), wmNews);
+            if (!isImageScan) {
+                return;
+            }
 
             //4.审核成功，保存app端的相关的文章数据
             ResponseResult responseResult = saveAppArticle(wmNews);

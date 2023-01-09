@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.heima.apis.article.IArticleClient;
 import com.heima.common.aliyun.GreenImageScan;
 import com.heima.common.aliyun.GreenTextScan;
+import com.heima.common.tess4j.Tess4jClient;
 import com.heima.file.service.FileStorageService;
 import com.heima.model.article.dtos.ArticleDto;
 import com.heima.model.common.dtos.ResponseResult;
@@ -20,6 +21,7 @@ import com.heima.wemedia.mapper.WmSensitiveMapper;
 import com.heima.wemedia.mapper.WmUserMapper;
 import com.heima.wemedia.service.WmNewsAutoScanService;
 import lombok.extern.slf4j.Slf4j;
+import net.sourceforge.tess4j.TesseractException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -58,6 +63,9 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
     @Autowired
     private WmSensitiveMapper wmSensitiveMapper;
 
+    @Autowired
+    private Tess4jClient tess4jClient;
+
     /**
      * 自媒体文章审核
      *
@@ -78,7 +86,10 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
             Map<String, Object> textAndImages = extractTextImages(wmNews);
             //自管理的敏感词过滤
             boolean isSensitive = reviewSensitiveScan((String) textAndImages.get("content"), wmNews);
-            if (!isSensitive) return;
+            if (!isSensitive) {
+                return;
+            }
+
             //对接阿里云默认审核成功
             //对接阿里云文本审核
             //boolean isTextScan = reviewTextScan((String) textAndImages.get("content"), wmNews);
@@ -176,7 +187,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
      * @param wmNews
      * @return
      */
-    private boolean reviewleImageScan(List<String> images, WmNews wmNews) {
+    private boolean reviewleImageScan(List<String> images, WmNews wmNews) throws TesseractException {
         boolean flag = true;
 
         if (images == null || images.size() == 0) {
@@ -189,9 +200,27 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
 
         List<byte[]> imageList = new ArrayList<>();
 
-        for (String image : images) {
-            byte[] bytes = fileStorageService.downLoadFile(image);
-            imageList.add(bytes);
+        try {
+            for (String image : images) {
+                byte[] bytes = fileStorageService.downLoadFile(image);
+                //图片识别文字审核---begin-----
+
+                //从byte[]转换为butteredImage
+                ByteArrayInputStream in = new ByteArrayInputStream(bytes);
+                BufferedImage imageFile = ImageIO.read(in);
+                //识别图片的文字
+                String result = tess4jClient.doOCR(imageFile);
+
+                //审核是否包含自管理的敏感词
+                boolean isSensitive = reviewSensitiveScan(result, wmNews);
+                if (!isSensitive) {
+                    return isSensitive;
+                }
+                //图片识别文字审核---end-----
+                imageList.add(bytes);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
 

@@ -114,6 +114,7 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
         }
         //删除素材
         boolean isRemove = removeById(id);
+        isRemove = false;
         if (BooleanUtils.isFalse(isRemove)) {
             return ResponseResult.errorResult(501, "文件删除失败");
         }

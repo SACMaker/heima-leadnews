@@ -96,7 +96,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         lambdaQueryWrapper.orderByDesc(WmNews::getCreatedTime);
         //5分页查询
         /*IPage<WmNews> page =*/
-        this.page(page, lambdaQueryWrapper);
+        page(page, lambdaQueryWrapper);
         //6.返回vo
         int total = (int) page.getTotal();
         log.debug("total:{}", total);
@@ -274,7 +274,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         wmNews.setEnable((short) 1);//默认上架
         if (wmNews.getId() == null) {
             //保存news
-            this.save(wmNews);
+            save(wmNews);
         } else {
             //修改,修改的是草稿里面的文章,之前已经保存了new和素材的关系
             LambdaQueryWrapper<WmNewsMaterial> lambdaQueryWrapper = Wrappers.<WmNewsMaterial>lambdaQuery().eq(WmNewsMaterial::getNewsId, wmNews.getId());

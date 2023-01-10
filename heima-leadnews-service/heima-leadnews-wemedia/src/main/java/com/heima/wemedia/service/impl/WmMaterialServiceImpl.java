@@ -62,7 +62,7 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
         wmMaterial.setIsCollection((short) 0);
         wmMaterial.setType((short) 0);
         wmMaterial.setCreatedTime(new Date());
-        this.save(wmMaterial);
+        save(wmMaterial);
         return ResponseResult.okResult(wmMaterial);
     }
 
@@ -89,7 +89,7 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
         //时间倒序查询
         lambdaQueryWrapper.orderByDesc(WmMaterial::getCreatedTime);
         //this.page是翻页查询的方法
-        page = this.page(page, lambdaQueryWrapper);
+        page = page(page, lambdaQueryWrapper);
         PageResponseResult responseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) page.getTotal());
         List<WmMaterial> records = page.getRecords();//获取自媒体素材list
         responseResult.setData(records);

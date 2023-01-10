@@ -14,7 +14,7 @@ public interface WmNewsTaskService {
 
 
     /**
-     * 消费任务，审核文章
+     * 消费任务+审核文章
      */
     public void scanNewsByTask();
 

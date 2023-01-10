@@ -51,8 +51,9 @@ public class WmNewsTaskServiceImpl implements WmNewsTaskService {
 
     /**
      * 消费任务+审核文章
+     *
      */
-    @Scheduled(fixedRate = 1000)//1s执行一次消费任务
+    @Scheduled(fixedRate/*频率*/ = 1000)//1s执行一次消费任务
     @Override
     public void scanNewsByTask() {
         log.info("消费任务，审核文章");

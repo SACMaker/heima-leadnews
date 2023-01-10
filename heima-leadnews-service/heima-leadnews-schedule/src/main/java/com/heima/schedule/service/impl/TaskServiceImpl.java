@@ -12,14 +12,18 @@ import com.heima.schedule.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
-@Service
 @Slf4j
+@Service
+@Transactional
 public class TaskServiceImpl implements TaskService {
     @Resource
     private TaskinfoMapper taskinfoMapper;
@@ -197,5 +201,28 @@ public class TaskServiceImpl implements TaskService {
         return task;
     }
 
+    /**
+     * 定时刷新任务
+     */
+    @Scheduled(cron = "0 */1 * * * ?")//每分钟刷新zset到list
+    public void refresh() {
+        log.info(System.currentTimeMillis() / 1000 + "执行了定时任务");
 
+        // 获取所有未来数据集合的key值-scan扫描获取所有zset key
+        Set<String> futureKeys = cacheService.scan(ScheduleConstants.FUTURE + "*");// future_*
+        for (String futureKey : futureKeys) { // future_250_250
+            //topic                                               _250_250
+            String topicKey = ScheduleConstants.TOPIC + futureKey.split(ScheduleConstants.FUTURE)[1];
+            //获取该组key下当前需要消费的任务数据
+            Set<String> tasks = cacheService.zRangeByScore(futureKey, 0, System.currentTimeMillis());
+            if (!tasks.isEmpty()) {
+                //将这些任务数据添加到消费者队列中-管道方式把zset数据刷新到list
+                cacheService.refreshWithPipeline(futureKey, topicKey, tasks);
+                log.info("成功的将" + futureKey + "下的当前需要执行的任务数据刷新到" + topicKey + "下");
+            }
+        }
+    }
 }
+
+
+

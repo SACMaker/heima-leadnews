@@ -28,4 +28,8 @@ public interface TaskService {
      */
     public Task poll(int type, int priority);
 
+    /**
+     * 定时刷新任务
+     */
+    public void refresh();
 }

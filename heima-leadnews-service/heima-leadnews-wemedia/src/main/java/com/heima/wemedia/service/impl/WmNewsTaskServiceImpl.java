@@ -25,6 +25,9 @@ public class WmNewsTaskServiceImpl implements WmNewsTaskService {
     @Autowired
     private IScheduleClient scheduleClient;
 
+    @Autowired
+    private WmNewsAutoScanService wmNewsAutoScanService;
+
     /**
      * 添加任务到延迟队列中
      *
@@ -45,9 +48,6 @@ public class WmNewsTaskServiceImpl implements WmNewsTaskService {
         scheduleClient.addTask(task);
         log.info("添加任务到延迟服务中----end");
     }
-
-    @Autowired
-    private WmNewsAutoScanService wmNewsAutoScanService;
 
     /**
      * 消费任务+审核文章

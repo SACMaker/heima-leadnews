@@ -234,6 +234,7 @@ public class TaskServiceImpl implements TaskService {
      */
     @Scheduled(cron = "0 */5 * * * ?")//每5min执行一次
     @PostConstruct//初始化操作,微服务启动后第一时间就去做数据的db to redi同步
+    @Override
     public void reloadData() {
         //清理redis缓存的所有数据
         clearCache();

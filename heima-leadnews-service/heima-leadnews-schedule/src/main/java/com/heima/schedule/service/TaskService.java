@@ -1,6 +1,9 @@
 package com.heima.schedule.service;
 
 import com.heima.model.schedule.dtos.Task;
+import org.springframework.scheduling.annotation.Scheduled;
+
+import javax.annotation.PostConstruct;
 
 public interface TaskService {
     /**
@@ -32,4 +35,11 @@ public interface TaskService {
      * 定时刷新任务
      */
     public void refresh();
+
+    /**
+     * 数据库任务定时同步到redis
+     */
+    @Scheduled(cron = "0 */5 * * * ?")
+    @PostConstruct
+    void reloadData();
 }

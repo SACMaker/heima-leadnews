@@ -1,5 +1,7 @@
 package com.heima.search.service;
 
+import com.heima.model.common.dtos.ResponseResult;
+
 public interface ApUserSearchService {
 
     /**
@@ -9,5 +11,13 @@ public interface ApUserSearchService {
      * @param userId
      */
     public void insert(String keyword, Integer userId);
+
+    /**
+     * 查询搜索历史
+     *
+     * @return
+     */
+    public ResponseResult findUserSearch();
+
 
 }

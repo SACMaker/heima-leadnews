@@ -37,4 +37,6 @@
           title="es" extension="java"/>
     <tree path="/heima-leadnews-service/heima-leadnews-search/src/main/java/com/heima/search/service/impl/ArticleSearchServiceImpl.java"
           title="es" extension="java"/>
+    <tree path="/heima-leadnews-service/heima-leadnews-search/src/main/java/com/heima/search/controller/v1/ApUserSearchController.java"
+          title="mongodb" extension="java"/>
 </trees>

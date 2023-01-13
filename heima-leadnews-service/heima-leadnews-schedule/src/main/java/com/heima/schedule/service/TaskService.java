@@ -41,5 +41,5 @@ public interface TaskService {
      */
     @Scheduled(cron = "0 */5 * * * ?")
     @PostConstruct
-    void reloadData();
+    public void reloadData();
 }

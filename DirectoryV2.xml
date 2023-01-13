@@ -22,4 +22,5 @@
     <tree path="/heima-leadnews-service/heima-leadnews-schedule" title="自媒体-延迟任务服务"/>
     <tree path="/heima-leadnews-model/src/main/java/com/heima/model/schedule" title="自媒体-延迟任务实体"/>
     <tree path="/heima-leadnews-service/heima-leadnews-search" title="App-搜索服务"/>
+    <tree path="/heima-leadnews-model/src/main/java/com/heima/model/search" title="App-搜索实体"/>
 </trees>

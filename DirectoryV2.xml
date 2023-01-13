@@ -23,4 +23,18 @@
     <tree path="/heima-leadnews-model/src/main/java/com/heima/model/schedule" title="自媒体-延迟任务实体"/>
     <tree path="/heima-leadnews-service/heima-leadnews-search" title="App-搜索服务"/>
     <tree path="/heima-leadnews-model/src/main/java/com/heima/model/search" title="App-搜索实体"/>
+    <tree path="/heima-leadnews-service/heima-leadnews-search/src/main/java/com/heima/search/pojos"
+          title="mongodb"/>
+    <tree path="/heima-leadnews-service/heima-leadnews-search/src/main/java/com/heima/search/service/ApUserSearchService.java"
+          title="mongodb" extension="java"/>
+    <tree path="/heima-leadnews-service/heima-leadnews-search/src/main/java/com/heima/search/service/impl/ApUserSearchServiceImpl.java"
+          title="mongodb" extension="java"/>
+    <tree path="/heima-leadnews-service/heima-leadnews-search/src/main/java/com/heima/search/controller/v1/ArticleSearchController.java"
+          title="es" extension="java"/>
+    <tree path="/heima-leadnews-service/heima-leadnews-search/src/main/java/com/heima/search/listener/SyncArticleListener.java"
+          title="es" extension="java"/>
+    <tree path="/heima-leadnews-service/heima-leadnews-search/src/main/java/com/heima/search/service/ArticleSearchService.java"
+          title="es" extension="java"/>
+    <tree path="/heima-leadnews-service/heima-leadnews-search/src/main/java/com/heima/search/service/impl/ArticleSearchServiceImpl.java"
+          title="es" extension="java"/>
 </trees>

@@ -22,25 +22,13 @@ import java.io.Serializable;
 @TableName("ap_article_config")
 public class ApArticleConfig implements Serializable {
 
-    public ApArticleConfig(Long articleId){
-        this.articleId = articleId;
-        this.isDelete = false;
-        this.isDown = false;
-        this.isForward = true;
-        this.isComment = true;
-    }
-
-
-
-    @TableId(value = "id",type = IdType.ID_WORKER)
+    @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
-
     /**
      * 文章id
      */
     @TableField("article_id")
     private Long articleId;
-
     /**
      * 是否可评论
      * true: 可以评论   1
@@ -48,7 +36,6 @@ public class ApArticleConfig implements Serializable {
      */
     @TableField("is_comment")
     private Boolean isComment;
-
     /**
      * 是否转发
      * true: 可以转发   1
@@ -56,7 +43,6 @@ public class ApArticleConfig implements Serializable {
      */
     @TableField("is_forward")
     private Boolean isForward;
-
     /**
      * 是否下架
      * true: 下架   1
@@ -64,7 +50,6 @@ public class ApArticleConfig implements Serializable {
      */
     @TableField("is_down")
     private Boolean isDown;
-
     /**
      * 是否已删除
      * true: 删除   1
@@ -72,4 +57,12 @@ public class ApArticleConfig implements Serializable {
      */
     @TableField("is_delete")
     private Boolean isDelete;
+
+    public ApArticleConfig(Long articleId) {
+        this.articleId = articleId;
+        this.isDelete = false;
+        this.isDown = false;
+        this.isForward = true;
+        this.isComment = true;
+    }
 }

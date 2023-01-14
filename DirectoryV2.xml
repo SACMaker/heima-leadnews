@@ -43,4 +43,5 @@
           title="mongodb" extension="java"/>
     <tree path="/heima-leadnews-service/heima-leadnews-search/src/main/java/com/heima/search/service/impl/ApAssociateWordsServiceImpl.java"
           title="mongodb" extension="java"/>
+    <tree path="/heima-leadnews-model/src/main/java/com/heima/model/behavior/dtos" title="App-用户行为实体"/>
 </trees>

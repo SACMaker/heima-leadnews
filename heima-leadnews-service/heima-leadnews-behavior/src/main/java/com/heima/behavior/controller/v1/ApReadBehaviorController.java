@@ -16,6 +16,7 @@ public class ApReadBehaviorController {
     @Autowired
     private ApReadBehaviorService apReadBehaviorService;
 
+
     @PostMapping
     public ResponseResult readBehavior(@RequestBody ReadBehaviorDto dto){
         return apReadBehaviorService.readBehavior(dto);

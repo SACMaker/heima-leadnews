@@ -28,11 +28,11 @@ public class ApUnlikesBehaviorServiceImpl implements ApUnlikesBehaviorService {
 
     @Override
     public ResponseResult unLike(UnLikesBehaviorDto dto) {
-
+        //参数校验
         if(dto.getArticleId() == null){
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
-
+        //是否登录
         ApUser user = AppThreadLocalUtil.getUser();
         if(user == null){
             return ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);

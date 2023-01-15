@@ -1,5 +1,6 @@
 package com.heima.article.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.article.mapper.ApArticleConfigMapper;
@@ -16,6 +17,7 @@ import com.heima.model.article.dtos.UpdateArticleDto;
 import com.heima.model.article.pojos.ApArticle;
 import com.heima.model.article.pojos.ApArticleConfig;
 import com.heima.model.article.pojos.ApArticleContent;
+import com.heima.model.article.vos.HotArticleVo;
 import com.heima.model.common.dtos.ResponseResult;
 import com.heima.model.common.enums.AppHttpCodeEnum;
 import com.heima.model.user.pojos.ApUser;
@@ -218,6 +220,27 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
             return ResponseResult.errorResult(501, "更新失败");
         }
         return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
+    }
+
+    /**
+     * 加载文章列表
+     *
+     * @param dto
+     * @param type      1 加载更多   2 加载最新
+     * @param firstPage true  是首页  flase 非首页
+     * @return
+     */
+    @Override
+    public ResponseResult Hotload(ArticleHomeDto dto, Short type, boolean firstPage) {
+        if (firstPage) {
+            String jsonStr = cacheService.get(ArticleConstants.HOT_ARTICLE_FIRST_PAGE + dto.getTag());
+            if (StringUtils.isNotBlank(jsonStr)) {
+                List<HotArticleVo> hotArticleVoList = JSON.parseArray(jsonStr, HotArticleVo.class);
+                ResponseResult responseResult = ResponseResult.okResult(hotArticleVoList);
+                return responseResult;
+            }
+        }
+        return load(type, dto);
     }
 }
 

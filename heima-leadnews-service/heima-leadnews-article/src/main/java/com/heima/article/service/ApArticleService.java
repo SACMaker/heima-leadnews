@@ -19,6 +19,16 @@ public interface ApArticleService extends IService<ApArticle> {
      */
     ResponseResult load(Short loadtype, ArticleHomeDto dto);
 
+    /**
+     * 热点文章加载
+     *
+     * @param dto
+     * @param type    1 加载更多   2 加载最新
+     * @param firstPage 是首页  flase 非首页
+     * @return
+     */
+    public ResponseResult Hotload(ArticleHomeDto dto, Short type, boolean firstPage);
+
 
     /**
      * 保存app端相关文章

@@ -12,6 +12,7 @@ import com.heima.common.redis.CacheService;
 import com.heima.model.article.dtos.ArticleDto;
 import com.heima.model.article.dtos.ArticleHomeDto;
 import com.heima.model.article.dtos.ArticleInfoDto;
+import com.heima.model.article.dtos.UpdateArticleDto;
 import com.heima.model.article.pojos.ApArticle;
 import com.heima.model.article.pojos.ApArticleConfig;
 import com.heima.model.article.pojos.ApArticleContent;
@@ -20,6 +21,7 @@ import com.heima.model.common.enums.AppHttpCodeEnum;
 import com.heima.model.user.pojos.ApUser;
 import com.heima.utils.thread.AppThreadLocalUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,5 +181,43 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
         return ResponseResult.okResult(resultMap);
     }
 
+    @Override
+    public ResponseResult updateArticleNum(UpdateArticleDto dto) {
+        ApArticle apArticle = (ApArticle) checkParam(dto).getData();
+        switch (dto.getType()) {
+            case LIKES:
+                apArticle.setLikes(dto.getLike());
+                break;
+            case COLLECTION:
+                apArticle.setCollection(dto.getCollect());
+                break;
+            case COMMENT:
+                apArticle.setComment(dto.getComment());
+                break;
+            case VIEWS:
+                apArticle.setViews(dto.getView());
+                break;
+        }
+        return updateArticle(apArticle);
+    }
+
+    private ResponseResult checkParam(UpdateArticleDto dto) {
+        if (dto == null && dto.getArticleId() == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID, "无效参数");
+        }
+        ApArticle apArticle = getOne(Wrappers.<ApArticle>lambdaQuery().eq(ApArticle::getId, dto.getArticleId()));
+        if (apArticle == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.DATA_NOT_EXIST, "数据不存在");
+        }
+        return ResponseResult.okResult(apArticle);
+    }
+
+    private ResponseResult updateArticle(ApArticle apArticle) {
+        boolean isUpdate = updateById(apArticle);
+        if (BooleanUtils.isFalse(isUpdate)) {
+            return ResponseResult.errorResult(501, "更新失败");
+        }
+        return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
+    }
 }
 

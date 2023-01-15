@@ -1,11 +1,14 @@
 package com.heima.behavior.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.heima.apis.article.IArticleClient;
 import com.heima.behavior.service.ApReadBehaviorService;
 import com.heima.common.redis.CacheService;
+import com.heima.model.article.dtos.UpdateArticleDto;
 import com.heima.model.behavior.dtos.ReadBehaviorDto;
 import com.heima.model.common.dtos.ResponseResult;
 import com.heima.model.common.enums.AppHttpCodeEnum;
+import com.heima.model.mess.UpdateArticleType;
 import com.heima.model.user.pojos.ApUser;
 import com.heima.utils.thread.AppThreadLocalUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +25,13 @@ public class ApReadBehaviorServiceImpl implements ApReadBehaviorService {
     @Autowired
     private CacheService cacheService;
 
+    @Autowired
+    private IArticleClient articleClient;
+
     @Override
     public ResponseResult readBehavior(ReadBehaviorDto dto) {
         //1.检查参数
-        if(dto == null || dto.getArticleId() == null){
+        if (dto == null || dto.getArticleId() == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
 
@@ -36,13 +42,21 @@ public class ApReadBehaviorServiceImpl implements ApReadBehaviorService {
         }
         //更新阅读次数
         String readBehaviorJson = (String) cacheService.hGet(dto.getArticleId().toString(), user.getId().toString());
-        if(StringUtils.isNotBlank(readBehaviorJson)){
+        if (StringUtils.isNotBlank(readBehaviorJson)) {
             ReadBehaviorDto readBehaviorDto = JSON.parseObject(readBehaviorJson, ReadBehaviorDto.class);
-            dto.setCount((short)(readBehaviorDto.getCount()+dto.getCount()));
+            dto.setCount((short) (readBehaviorDto.getCount() + dto.getCount()));
         }
         // 保存当前key
         log.info("保存当前key:{} {} {}", dto.getArticleId(), user.getId(), dto);
         cacheService.hPut("READ-BEHAVIOR-" + dto.getArticleId().toString(), user.getId().toString(), JSON.toJSONString(dto));
+
+        UpdateArticleDto updateArticleDto = new UpdateArticleDto();
+
+        updateArticleDto.setArticleId(dto.getArticleId());
+        updateArticleDto.setType(UpdateArticleType.VIEWS);
+        updateArticleDto.setView(dto.getCount());
+
+        articleClient.updateArticleNum(updateArticleDto);
 
         return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
     }

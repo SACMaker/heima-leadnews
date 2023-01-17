@@ -12,6 +12,9 @@ import org.springframework.context.annotation.Configuration;
 import java.time.Duration;
 import java.util.Arrays;
 
+/**
+ * kafka流式处理
+ */
 @Configuration
 @Slf4j
 public class KafkaStreamHelloListener {

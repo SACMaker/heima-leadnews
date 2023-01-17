@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Properties;
 
 /**
- * 流式处理
+ * kafka流式处理
  */
 public class KafkaStreamQuickStart {
 

@@ -45,4 +45,5 @@
           title="mongodb" extension="java"/>
     <tree path="/heima-leadnews-model/src/main/java/com/heima/model/behavior/dtos" title="App-用户行为实体"/>
     <tree path="/heima-leadnews-service/heima-leadnews-behavior" title="App-用户行为服务"/>
+    <tree path="/heima-leadnews-model/src/main/java/com/heima/model/comment/dtos" title="App-评论实体"/>
 </trees>

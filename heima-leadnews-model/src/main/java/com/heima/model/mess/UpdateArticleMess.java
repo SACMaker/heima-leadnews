@@ -2,6 +2,9 @@ package com.heima.model.mess;
 
 import lombok.Data;
 
+/**
+ * KafkaStream消息发送封装类
+ */
 @Data
 public class UpdateArticleMess {
 

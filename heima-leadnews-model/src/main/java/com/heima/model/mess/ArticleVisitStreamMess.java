@@ -2,6 +2,9 @@ package com.heima.model.mess;
 
 import lombok.Data;
 
+/**
+ * 用于聚合之后的分值封装定义实体类
+ */
 @Data
 public class ArticleVisitStreamMess {
     /**
